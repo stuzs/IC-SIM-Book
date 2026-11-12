@@ -1,0 +1,299 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>序言 - 集成电路仿真十讲 - Ten Tutorials on IC Simulation</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="集成电路仿真基础算法指南 - A guide to fundamental algorithms for IC simulation">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-e96d0476.css">
+        <link rel="stylesheet" href="css/chrome-d279d366.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-14fb0710.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-18677864.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">集成电路仿真十讲 - Ten Tutorials on IC Simulation</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
+<h1 id="序言"><a class="header" href="#序言">序言</a></h1>
+<h2 id="01-集成电路及其设计仿真"><a class="header" href="#01-集成电路及其设计仿真">0.1 集成电路及其设计仿真</a></h2>
+<p>集成电路(IC, Integrated Circuit)从单个晶体管发展而来。将数个晶体管组成基本的功能电路单元，可以实现少量比特位的存储和逻辑运算。几十亿以上这样的逻辑单元摆放、堆叠、连接在一起后，就构成了当前主流应用的集成电路芯片系统，典型的如中央处理器(CPU)、图形处理器(GPU)、动态随机读写内存(DRAM)、闪存(FlashROM)等等。从微观角度看，计算就是电荷在集成电路内经过一批开关充电、放电的过程；今天因人工智能应用而倍受重视的“算力“，就由集成电路中一条条可能形成的充放电途径共同构成。集成电路的发展和应用不但彻底改变了人类工作生活的方式，其产业链上的一些节点今天也成为了地缘竞争中的核心焦点，而且这一趋势还会持续影响世界发展的宏大走向。</p>
+<p>集成电路仿真是指使用计算机软件工具对集成电路设计的物理行为进行模拟，以获得所需要的电路性能参数。这里“仿真“对应的英文名词为simulation。因此，本书的英文书名为Ten Tutorials on IC Simulation。</p>
+<p>在集成电路的设计过程中需要不断进行仿真，来回答所设计产品今后的具体物理性质，比如：这样设计电路，今后能否准确实现系统的行为？电路的时钟是否能跑在一定的频率以上？修改几条路径后带来的功耗损失是多少？产品将来的长期可靠性怎么样？只有回答好类似的问题，集成电路设计才能定稿成为电路版图，转入实际的生产制造。仿真因此是集成电路设计流程中纷繁复杂的设计任务的主要工作基础。</p>
+<center>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXMtYXNjaWkiIHN0YW5kYWxvbmU9Im5vIj8+PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiBjb250ZW50U3R5bGVUeXBlPSJ0ZXh0L2NzcyIgaGVpZ2h0PSIyNThweCIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSIgc3R5bGU9IndpZHRoOjc1OHB4O2hlaWdodDoyNThweDtiYWNrZ3JvdW5kOiNGRkZGRkY7IiB2ZXJzaW9uPSIxLjEiIHZpZXdCb3g9IjAgMCA3NTggMjU4IiB3aWR0aD0iNzU4cHgiIHpvb21BbmRQYW49Im1hZ25pZnkiPjxkZWZzLz48Zz48cmVjdCBmaWxsPSIjRjFGMUYxIiBoZWlnaHQ9IjM5LjA2NzkiIHJ4PSIxMi41IiByeT0iMTIuNSIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDoxLjU7IiB3aWR0aD0iMTI0IiB4PSI2MjIiIHk9IjQ5LjUzNCIvPjx0ZXh0IGZpbGw9IiMwMDAwMDAiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjE0IiBsZW5ndGhBZGp1c3Q9InNwYWNpbmciIHRleHRMZW5ndGg9IjEwNCIgeD0iNjMyIiB5PSI3NC40OTk5Ij5JQ0NBRCBzb2Z0d2FyZTwvdGV4dD48cmVjdCBmaWxsPSIjRjFGMUYxIiBoZWlnaHQ9IjM5LjA2NzkiIHJ4PSIxMi41IiByeT0iMTIuNSIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDoxLjU7IiB3aWR0aD0iMTQ1IiB4PSI0MjciIHk9IjIwIi8+PHRleHQgZmlsbD0iIzAwMDAwMCIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTQiIGxlbmd0aEFkanVzdD0ic3BhY2luZyIgdGV4dExlbmd0aD0iMTI1IiB4PSI0MzciIHk9IjQ0Ljk2NTkiPklDIHNpbXVsYXRpb24gdG9vbHM8L3RleHQ+PHBhdGggZD0iTTYyMiw2OS4wNjc5IEw2MTIsNjkuMDY3OSBDNTk3LDY5LjA2NzkgNTk3LDM5LjUzNCA1ODIsMzkuNTM0IEw1NzIsMzkuNTM0ICIgZmlsbD0ibm9uZSIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDoxLjA7Ii8+PHJlY3QgZmlsbD0iI0YxRjFGMSIgaGVpZ2h0PSIzOS4wNjc5IiByeD0iMTIuNSIgcnk9IjEyLjUiIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MS41OyIgd2lkdGg9IjU2MiIgeD0iMTAiIHk9Ijc5LjA2NzkiLz48dGV4dCBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNCIgbGVuZ3RoQWRqdXN0PSJzcGFjaW5nIiB0ZXh0TGVuZ3RoPSI1NDIiIHg9IjIwIiB5PSIxMDQuMDMzOSI+T3RoZXIgc29mdHdhcmUgc3VjaCBhcyBsb2dpYyBzeXRoZXNpcywgUCZhbXA7UiwgRFJDL0xWUyBhbmQgZm9ybWFsIHZlcmlmaWNhdGlvbiB0b29sczwvdGV4dD48cGF0aCBkPSJNNjIyLDY5LjA2NzkgTDYxMiw2OS4wNjc5IEM1OTcsNjkuMDY3OSA1OTcsOTguNjAxOSA1ODIsOTguNjAxOSBMNTcyLDk4LjYwMTkgIiBmaWxsPSJub25lIiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjEuMDsiLz48cmVjdCBmaWxsPSIjRjFGMUYxIiBoZWlnaHQ9IjM5LjA2NzkiIHJ4PSIxMi41IiByeT0iMTIuNSIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDoxLjU7IiB3aWR0aD0iMTA5IiB4PSIzNTIiIHk9IjE2Ny42Njk4Ii8+PHRleHQgZmlsbD0iIzAwMDAwMCIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTQiIGxlbmd0aEFkanVzdD0ic3BhY2luZyIgdGV4dExlbmd0aD0iODkiIHg9IjM2MiIgeT0iMTkyLjYzNTciPkVEQSBzb2Z0d2FyZTwvdGV4dD48cmVjdCBmaWxsPSIjRjFGMUYxIiBoZWlnaHQ9IjM5LjA2NzkiIHJ4PSIxMi41IiByeT0iMTIuNSIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDoxLjU7IiB3aWR0aD0iMTI0IiB4PSIxNzgiIHk9IjEzOC4xMzU4Ii8+PHRleHQgZmlsbD0iIzAwMDAwMCIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTQiIGxlbmd0aEFkanVzdD0ic3BhY2luZyIgdGV4dExlbmd0aD0iMTA0IiB4PSIxODgiIHk9IjE2My4xMDE4Ij5JQ0NBRCBzb2Z0d2FyZTwvdGV4dD48cGF0aCBkPSJNMzUyLDE4Ny4yMDM4IEwzNDIsMTg3LjIwMzggQzMyNywxODcuMjAzOCAzMjcsMTU3LjY2OTggMzEyLDE1Ny42Njk4IEwzMDIsMTU3LjY2OTggIiBmaWxsPSJub25lIiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjEuMDsiLz48cmVjdCBmaWxsPSIjRjFGMUYxIiBoZWlnaHQ9IjM5LjA2NzkiIHJ4PSIxMi41IiByeT0iMTIuNSIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDoxLjU7IiB3aWR0aD0iMjkyIiB4PSIxMCIgeT0iMTk3LjIwMzgiLz48dGV4dCBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNCIgbGVuZ3RoQWRqdXN0PSJzcGFjaW5nIiB0ZXh0TGVuZ3RoPSIyNzIiIHg9IjIwIiB5PSIyMjIuMTY5NyI+T3RoZXIgc29mdHdhcmUgc3VjaCBhcyBQQ0IgZGVzaWduIHRvb2xzPC90ZXh0PjxwYXRoIGQ9Ik0zNTIsMTg3LjIwMzggTDM0MiwxODcuMjAzOCBDMzI3LDE4Ny4yMDM4IDMyNywyMTYuNzM3NyAzMTIsMjE2LjczNzcgTDMwMiwyMTYuNzM3NyAiIGZpbGw9Im5vbmUiIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MS4wOyIvPjwvZz48L3N2Zz4=" alt=""><span class="img-wrapper"><img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXMtYXNjaWkiIHN0YW5kYWxvbmU9Im5vIj8+PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiBjb250ZW50U3R5bGVUeXBlPSJ0ZXh0L2NzcyIgaGVpZ2h0PSIyNThweCIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSIgc3R5bGU9IndpZHRoOjc1OHB4O2hlaWdodDoyNThweDtiYWNrZ3JvdW5kOiNGRkZGRkY7IiB2ZXJzaW9uPSIxLjEiIHZpZXdCb3g9IjAgMCA3NTggMjU4IiB3aWR0aD0iNzU4cHgiIHpvb21BbmRQYW49Im1hZ25pZnkiPjxkZWZzLz48Zz48cmVjdCBmaWxsPSIjRjFGMUYxIiBoZWlnaHQ9IjM5LjA2NzkiIHJ4PSIxMi41IiByeT0iMTIuNSIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDoxLjU7IiB3aWR0aD0iMTI0IiB4PSI2MjIiIHk9IjQ5LjUzNCIvPjx0ZXh0IGZpbGw9IiMwMDAwMDAiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjE0IiBsZW5ndGhBZGp1c3Q9InNwYWNpbmciIHRleHRMZW5ndGg9IjEwNCIgeD0iNjMyIiB5PSI3NC40OTk5Ij5JQ0NBRCBzb2Z0d2FyZTwvdGV4dD48cmVjdCBmaWxsPSIjRjFGMUYxIiBoZWlnaHQ9IjM5LjA2NzkiIHJ4PSIxMi41IiByeT0iMTIuNSIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDoxLjU7IiB3aWR0aD0iMTQ1IiB4PSI0MjciIHk9IjIwIi8+PHRleHQgZmlsbD0iIzAwMDAwMCIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTQiIGxlbmd0aEFkanVzdD0ic3BhY2luZyIgdGV4dExlbmd0aD0iMTI1IiB4PSI0MzciIHk9IjQ0Ljk2NTkiPklDIHNpbXVsYXRpb24gdG9vbHM8L3RleHQ+PHBhdGggZD0iTTYyMiw2OS4wNjc5IEw2MTIsNjkuMDY3OSBDNTk3LDY5LjA2NzkgNTk3LDM5LjUzNCA1ODIsMzkuNTM0IEw1NzIsMzkuNTM0ICIgZmlsbD0ibm9uZSIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDoxLjA7Ii8+PHJlY3QgZmlsbD0iI0YxRjFGMSIgaGVpZ2h0PSIzOS4wNjc5IiByeD0iMTIuNSIgcnk9IjEyLjUiIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MS41OyIgd2lkdGg9IjU2MiIgeD0iMTAiIHk9Ijc5LjA2NzkiLz48dGV4dCBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNCIgbGVuZ3RoQWRqdXN0PSJzcGFjaW5nIiB0ZXh0TGVuZ3RoPSI1NDIiIHg9IjIwIiB5PSIxMDQuMDMzOSI+T3RoZXIgc29mdHdhcmUgc3VjaCBhcyBsb2dpYyBzeXRoZXNpcywgUCZhbXA7UiwgRFJDL0xWUyBhbmQgZm9ybWFsIHZlcmlmaWNhdGlvbiB0b29sczwvdGV4dD48cGF0aCBkPSJNNjIyLDY5LjA2NzkgTDYxMiw2OS4wNjc5IEM1OTcsNjkuMDY3OSA1OTcsOTguNjAxOSA1ODIsOTguNjAxOSBMNTcyLDk4LjYwMTkgIiBmaWxsPSJub25lIiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjEuMDsiLz48cmVjdCBmaWxsPSIjRjFGMUYxIiBoZWlnaHQ9IjM5LjA2NzkiIHJ4PSIxMi41IiByeT0iMTIuNSIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDoxLjU7IiB3aWR0aD0iMTA5IiB4PSIzNTIiIHk9IjE2Ny42Njk4Ii8+PHRleHQgZmlsbD0iIzAwMDAwMCIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTQiIGxlbmd0aEFkanVzdD0ic3BhY2luZyIgdGV4dExlbmd0aD0iODkiIHg9IjM2MiIgeT0iMTkyLjYzNTciPkVEQSBzb2Z0d2FyZTwvdGV4dD48cmVjdCBmaWxsPSIjRjFGMUYxIiBoZWlnaHQ9IjM5LjA2NzkiIHJ4PSIxMi41IiByeT0iMTIuNSIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDoxLjU7IiB3aWR0aD0iMTI0IiB4PSIxNzgiIHk9IjEzOC4xMzU4Ii8+PHRleHQgZmlsbD0iIzAwMDAwMCIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTQiIGxlbmd0aEFkanVzdD0ic3BhY2luZyIgdGV4dExlbmd0aD0iMTA0IiB4PSIxODgiIHk9IjE2My4xMDE4Ij5JQ0NBRCBzb2Z0d2FyZTwvdGV4dD48cGF0aCBkPSJNMzUyLDE4Ny4yMDM4IEwzNDIsMTg3LjIwMzggQzMyNywxODcuMjAzOCAzMjcsMTU3LjY2OTggMzEyLDE1Ny42Njk4IEwzMDIsMTU3LjY2OTggIiBmaWxsPSJub25lIiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjEuMDsiLz48cmVjdCBmaWxsPSIjRjFGMUYxIiBoZWlnaHQ9IjM5LjA2NzkiIHJ4PSIxMi41IiByeT0iMTIuNSIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDoxLjU7IiB3aWR0aD0iMjkyIiB4PSIxMCIgeT0iMTk3LjIwMzgiLz48dGV4dCBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNCIgbGVuZ3RoQWRqdXN0PSJzcGFjaW5nIiB0ZXh0TGVuZ3RoPSIyNzIiIHg9IjIwIiB5PSIyMjIuMTY5NyI+T3RoZXIgc29mdHdhcmUgc3VjaCBhcyBQQ0IgZGVzaWduIHRvb2xzPC90ZXh0PjxwYXRoIGQ9Ik0zNTIsMTg3LjIwMzggTDM0MiwxODcuMjAzOCBDMzI3LDE4Ny4yMDM4IDMyNywyMTYuNzM3NyAzMTIsMjE2LjczNzcgTDMwMiwyMTYuNzM3NyAiIGZpbGw9Im5vbmUiIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MS4wOyIvPjwvZz48L3N2Zz4=" alt=""></span></label></p>
+<p>图0-1 EDA, ICCAD, IC仿真和其它设计任务的层级关系<br>Hierarchical relationship between EDA, ICCAD, IC simulation and other design tasks</p>
+</center>
+<p>更广义的，使用计算机软件帮助进行电子系统（除集成电路以外，也有可能包含印制板、无线通信模块、功率器件、嵌入式算法等）的设计类任务时，所采用的软件可以通称为EDA软件或EDA工具。EDA的全名为Electronic Design Automation，其三个词分别表示了“电子“、“设计”、“自动化”。比EDA范围稍小的，专门用于集成电路设计类任务的EDA软件，往往又称为ICCAD软件（其中CAD指Computer Aided Design）。而由于ICCAD软件产品占据了EDA软件产业的大部分份额，两个词在很多场合下又相互混用表达同一个含义。</p>
+<h2 id="02-eda的演进四台阶"><a class="header" href="#02-eda的演进四台阶">0.2 EDA的演进四台阶</a></h2>
+<p>十多年以前，Synopsys公司的创办人、时任CEO的Aart de Gues先生曾到校园访问授课，他比较详细地回顾了EDA行业的历史发展过程（而在后来听到的他的其它演讲中，内容往往更加面向未来）。此后我在自己的课程教学中常引用此次演讲中对于EDA概念的进一步拆解细化。构成EDA的这三个英文词中，前两个是关于软件应用领域的限制修饰，而第三个词Automation则表达了软件应用的一个理想化目标，即要将电子系统的设计过程实现为“自动化“。要超越手工操作，实现自动化设计过程这一理想目标，攀登的阶梯可以细分成如下四个台阶：</p>
+<center>
+<pre class="mermaid">graph LR
+    Modeling --&gt; Simulation
+    Simulation --&gt; Optimization
+    Optimization --&gt; Automation
+</pre>
+
+<p>图0-2 EDA四台阶： 建模 -&gt; 仿真 -&gt; 优化 -&gt; 自动化<br>4 steps of EDA: modeling -&gt; simulation -&gt; optimization -&gt; automation</p>
+</center>
+<p>为了帮助解释这四个台阶，我分别挑选了两个样例：</p>
+<ol>
+<li>要自动设计一个反相器门电路，在确定了前级电路的输入和后级负载电路后，该反相器需要表现出最佳的延时性能。</li>
+<li>要自动设计一个逻辑模块，能够识别内存图像中出现的小猫，并发出提示；该模块的面积、功耗、延时等要达到较优的综合指标。</li>
+</ol>
+<p><strong>样例1中的建模</strong>：要有一种模型（可能以某种软件工具的代码表达，如C语言描述的四端口电流-电压方程组）代表晶体管的准确电学特性。要有另一种模型（可能以另一种软件工具的代码表达，如晶体管连接关系的表格）代表将晶体管连接起来的电路。之所以称这两者为“模型“，因为它们并不是晶体管或电路实体，而是物理实体特性的一种虚拟化表达形式。这就好像说，地球仪、航海路线图、高速公路实时交通流量图等都是对应地面物理实体的一种模型。有了模型，研究的对象就从物理世界进入到了数学世界。<br><strong>样例1中的仿真</strong>：要让晶体管模型、电路模型能“跑“起来，加上激励信号（也是实际信号发生器的理想化模型）后看到输出波形。从仿真结果的波形数据中测量得到延时，则对应仿真中的“数据后处理“步骤。<br><strong>样例1中的优化</strong>：要有一种算法能够尝试寻找最优的反相器电路参数（比如各个晶体管的连接和摆放位置、栅极长度、栅极宽度等），以实现优化目标（本例中为延时指标，也可能是其它技术指标）。<br><strong>样例1中的自动化</strong>：用户直接给出设计目标的描述，即输入较完整的“提示词“，然后“一键“直接获得最优的电路结构和设计版图。具体过程中的多次迭代，用户不再介入。</p>
+<p><strong>样例2中的建模</strong>：要有一种抽象层次较高的系统算法模型（可能是CNN算法对应的C语言代码）描述从图像中识别小猫的计算过程；此模型细化后成为另一种有明确数据精度、计算部件、计算节拍、内存访问顺序等的事务级算法模型（如以SystemC语言代码或Chisel语言代码表达）；后续借助EDA工具，模型可以细化为寄存器传输级模型(RTL Model，常以Verilog HDL语言代码表达)，再继续细化为逻辑门网表级模型(Gate Netlist Model，也常以逻辑门级Verilog HDL语言代码表达)等。<br><strong>样例2中的仿真</strong>：要让上述各个层次的模型在加上激励信号后都能“跑“起来。根据模型细化程度，这些模型的仿真可以跑在多核CPU服务器上，也可能跑在专门的硬件仿真器上，或跑在FPGA开发板上，其目的是能较快看到更多测试用例的仿真结果，来确定这些模型的性能表现。<br><strong>样例2中的优化</strong>：要有算法能够尝试寻找最优的子模块设计方案，比如是否可以部分采用4位整数精度计算，图像卷积运算分配到多少个单元并行计算为佳，数据总线位数如何选择，是否可以简化总线仲裁方案等。这类优化问题，往往需要以大批测试图像输入进行仿真，评估仿真结果后才能确定能满足约束条件的优选方案。<br><strong>样例2中的自动化</strong>：用户直接给出C语言代码描述的算法模型，加上对设计目标和成本的数学描述，即输入描述电路系统基本逻辑及优化目标的复杂“提示词“和自有的专业化“技能“，然后“一键“直接获得最优的电路子模块结构、逻辑门网表结构直到供生产使用的设计版图。</p>
+<p>以上两个样例，展示了自动化设计这一理想目标的四个细分台阶，而台阶之间的层次依赖关系也已基本显示出来。</p>
+<h2 id="03-专业词汇的中英文混用"><a class="header" href="#03-专业词汇的中英文混用">0.3 专业词汇的中英文混用</a></h2>
+<p>英文词simulate/simulation可翻译为中文词“模拟“、“模仿“等；其词根simul-是same的意思，即相同、相似。在作为集成电路专业名词使用时，我挑选了“仿真“来与之对应。有时候我们也会使用中文词“模拟“对应EDA中的simulate动作，但因为中文词组“模拟电路“对应Analog Circuit已经非常固定，为了避免混淆如出现“模拟电路模拟“或“模拟模拟电路“这样的语句，在正式行文时则会尽量不使用“模拟”。另一方面，Analog Circuit在我国台湾技术圈惯称“类比电路“，当地在翻译simulation时就没有前述顾虑，会将IC simulation翻译成“积体电路模拟“。当地以“积体电路“来翻译Integrated Circuit；此“积“也就是台积电(TSMC)企业名称中的那个“积“字。</p>
+<p>从专业名词翻译的例子，能体会到词汇的单纯符号意义；选词为了准确达意，要恰当地选择一个符号代表一个概念，可能有多方面的考虑。而在集成电路技术专业内，涉及学科跨度大、新技术概念层出不穷，概念的内涵又经常在变动；对应某一概念的英文名词从出现到普及，也逐步在变化调整，一般需要一段时间的使用后才能收敛到固定的词、意匹配。</p>
+<p>下面再看两个集成电路技术名词翻译的参考例：<br><strong>例1</strong>：门级数字逻辑电路的仿真，一般使用HDL仿真软件，如商用Verilog仿真器ModelSim、VCS、Xcelium，以及开源仿真器Icarus Verilog (iverilog)、Verilator等。当电路规模巨大，或需要将系统芯片中的嵌入式软件和处理器逻辑电路一起快速仿真，设计企业会选择购买硬件仿真加速器如Palladium、Veloce、Zebu等。在专用硬件加速设备上实现数字逻辑的simulation，对应此概念的英文名词在应用中逐步收敛为emulation，对应的设备称为emulator。在翻译成中文时，为了将emulation和原有simulation实现区别，目前书面上常使用“硬件仿真加速“这个词组；如后续词组使用频率提高，可能会有更短的固定词汇来代替该六字词组。形成对比的，台湾省同行提及emulator概念时，会说“硬体模拟加速器“。而日本同行则直接使用英语读音的音译来指向simulator（シミュレータ）和emulator（エミュレータ）这两个专业概念。<br><strong>例2</strong>：在ICCAD流程中会不断提到对集成电路设计进行verification和validation。两个词都有对比、检查、校验、证实的意思，但在专业领域内使用又分别逐渐聚焦到有精细差异的两个概念上。Verification专业概念使用较早，基本占据了中文词汇“验证“，一般指集成电路设计中某一个级别的实现是否和上级模型描述表现一致。Validation专业概念使用较晚，一般指集成电路设计的原型实现到FPGA上或实现到硅片上以后，施加更接近实际的物理激励之后的行为对比；其中文翻译如果用“实“和“验“两字，意思似比较契合。但是“实验“两字词被experiment这个概念固定匹配比较久了，肯定需要避免混淆。目前专业内有“实证“、“确证”、“确认”、“系统验证“等翻译方法，但二三十年以来也还没有一致收敛到位。</p>
+<p>即使在集成电路专业内部，模拟电路和射频电路方向的工程师会倾向于认为verifcation和validation分别表示电路验证工作的两个阶段，以是否拿到实际硅片作为两个验证阶段（即pre-silicon vs. post-silicon）的划分。但复杂数字电路要从制造厂拿到硅片“点亮“可不容易；在数字电路设计中，试产之前也有大量“测试、验证“工作被归类为validation。</p>
+<p>日常生活中有同学比较反感中英词汇混用说话；经常能同时混用普通话和方言交流的同学就会宽容一些。如果从快速地以短词汇准确达意的角度，大家切换到说话者所处的场景，则可能会有更多的换位理解。目前世界上以拼音文字居多，音译词汇的好处是可以快速准确指向外来概念，但存在问题也很多，如独立词根库越来越大。作为集成电路专业技术人员，要掌握并有效交流新的技术概念，对中英文两方面词意配合的微妙点和动态变化都可保持足够敏感，同时亦可观察借鉴数学、物理学以及如通信、电力等相近工程领域中的用词动向。</p>
+<h2 id="04-电路仿真和人工智能"><a class="header" href="#04-电路仿真和人工智能">0.4 电路仿真和人工智能</a></h2>
+<p>人工智能大语言模型(LLM)进入编程领域后，显示了超强的实际工作能力。LLM在其训练阶段“读遍“了人类所有的公开语言文字信息，其中计算机语言的语法规则准确简练、公开的源代码资源又非常丰富；LLM对于计算机语言的掌握和使用又更好于自然语言。</p>
+<p>在自然语言中，前文已提到技术词汇在不同细分专业领域、不同时间阶段，本身对应的概念就在不断漂移，加上用于训练的专业技术文献数量相对也不多，要LLM容纳分辨小专业内词汇的概念演进关系再以概率模型为基础生成文字表述，其结果较难精确达意。例如LLM可以很好地翻译日常生活新闻，但对集成电路领域的最新技术内容，其翻译却往往不忍卒读；很多时候在于同样的中文、英文词汇，在小专业内和日常生活中分别对应了不同的概念，要靠约定俗成的经验去分辨其模糊的边界，而这类经验很可能并没有表现在LLM训练用的书面材料中。</p>
+<p>集成电路设计确实也基于专门的计算机语言。但是相对于主流计算机语言如C/C++, Java, Python等，集成电路设计中采用的语言如Verilog和SystemVerilog，使用范围小、可供训练的素材相对很少。LLM目前能多大程度帮助集成电路设计？读到这里，同学们正好来试试和LLM对话：“How could LLM help do EDA tasks?”</p>
+<p>相信随着技术不断发展，现存各家LLM答问的质量都会越来越高，同学提问获得的答案都会更接近事实，而且通过问答还能得到更多的有益线索。目前来看AI作为人类集成电路设计工程师的辅助工具，在具体知识的关联和检索、中小规模原型代码生成、重复性较高的代码设计和测试分析、设计过程迭代控制、派生的注释文档类任务中都能帮助显著提升工作效率。</p>
+<p>但是，在本章前述攀向EDA理想目标的四步台阶中，集成电路仿真主要以求解方程为核心，集成电路优化则以求解带约束条件的优化问题为核心。仿真中方程求解的难点往往在于计算的速度和内存容量，优化中的难点则在于许多问题本身就是“非确定性多项式时间困难问题“（简称NP Hard问题）。LLM基于语言词元(token)之间的上下文概率关系进行训练，形成词元之间的权重网络模型能够反映现实世界概念之间的关联，但这样的网络较难在仿真和优化这类“硬“数学问题上实现精确的自动答案生成，如生成稳定的、具体的计算数值。</p>
+<p>可以来试试请LLM生成一组它自己无法轻易求解的线性方程组：</p>
+<pre><code>Generate a set of linear equations that LLM feels hard to solve.
+</code></pre>
+<p>然后，将上述生成的方程组作为下一步的输入：</p>
+<pre><code>Generate a linear circuit with its node voltages as unknowns, and its KCL equations complying with the set of equations above.
+</code></pre>
+<p>这样，LLM就生成了它自己无法分析求解的一种简单的线性直流电路。即使LLM还能继续反复“深度思索“理清分析本电路的大致思路，但如果继续增加电阻或线性受控源的数目，基于词元概率关系的LLM推理方法要直接回答出各个节点的准确电压值，也将会更加困难。</p>
+<p>人工智能围棋选手AlphaGo和AlphaZero在棋艺上已远超人类。在通用人工智能(AGI)可能很快到来的时代，人类工程师设计集成电路的每一步骤会如同下棋中的一步步“妙招“被AI轻易超越吗？暂时可将此作为一个开放问题保持不断观察。</p>
+<p>首先，可借鉴观察平行的行业以感受更大范围的技术趋势，如社交媒体、网络电商等软件开发业，精密机械、建筑结构等制造业，它们内部在如何系统化地使用人工智能工具？如广告美术装帧、动画短视频等行业，以往的成果产品内部结构关系相对单一、评价偏主观感受，受人工智能工具的冲击很大；但这些行业也还在继续加速发展，创造出更新的发展机会。集成电路行业是人类产业投入最大、产品复杂度最高、设计流程最复杂、设计内容精确度要求极高的行业，和其它行业相比，人类集成电路设计工程师的工作应该是最难被AI替代的。</p>
+<p>其次，集成电路设计业从其源起就把“设计自动化“作为理想目标；EDA企业常常把自己的ICCAD工具命名为“编译器“（历史上有Design Compiler, Silicon Compiler, IC Compiler, Custom Compiler等名称），希望能像将C语言代码自动编译成二进制机器码一样，将集成电路的高层行为描述“一键“自动转化成门级、版图级的设计。但从历史过程上看，这些号称“编译器“的工具虽然解决了预设的目标问题，但每次获得应用以后，集成电路的复杂度、规模又再度膨胀，设计流程步骤增加更多，设计人员队伍更加壮大。其原因是竞争对手使用了同样的EDA工具后，也提出了更高的设计目标，要在更小的硅片面积内放入更多电路功能，使用更少的能量，获得更高的运算量。这也是“摩尔定律“(Moore’s Law)在EDA工业发展历史上的一个投影。</p>
+<p>AI工具的能力迅速成长，不断替代完成集成电路设计工程师的一些常规操作，是可以肯定的。但在集成电路设计流程中，面向工程产品的需求综合、数学复杂度很高的仿真与设计应该都是最难被通用AI所完全替代的。人类设计师可以借助EDA工具和AI工具配合完成方案探索和决策；目前日常的仿真和优化任务，也还是要交给EDA工具来高效完成，当然在EDA工具中会利用AI手段辅助核心数学问题的求解，比如将强化学习用于最优探索。另外不同于下棋目标单一，以AIGC方式产出的IC设计内容，需要经过人类的理解、审核和不断权衡选择，并和人类编制的代码一样经过严格全面的回归测试或完备性证明。ICCAD流程本身因其步骤复杂，一直就是高度脚本化的，所有操作命令均要求可记录可重复；善于调度接口的智能体(Smart Agent, or Agent)也可以利用这些脚本作为其基础“插件工具“。</p>
+<h2 id="05-书籍内容"><a class="header" href="#05-书籍内容">0.5 书籍内容</a></h2>
+<p>正如好的赛车驾驶员要掌握自己车辆的原理构造，也如好的运动员要掌握自己身体运行的生理学、力学和生物化学原理，要在集成电路设计流程中使用好EDA工具，应掌握EDA工具的底层算法原理。如果还有计划进一步研究开发算法或软件来补充扩展现有EDA工具的话，更需要提前了解掌握相关的知识，并开阔眼界以求触类旁通。</p>
+<p>在攀向EDA理想目标的四步台阶中，仿真是承上启下的关键一步，即设计优化需要以仿真结果作为代价函数的计算依据。设计工程师日常交互最频繁的就是各种仿真器软件：模拟电路和射频电路设计工程师的日常工作围绕原理图级的电路仿真和版图级的电路仿真、电磁场仿真；数字集成电路设计工程师根据任务所在的设计抽象层次由高到低，工作围绕逻辑仿真、时序仿真、功率仿真、单元库电路仿真等。</p>
+<p>作者本人从1985年进入大学以后（也即在网上常传说之所谓EE85班就读），就专业从事EDA/ICCAD相关的学习、科研，后也曾在多个EDA企业工作；自2000年起在EDA专题方向上开设并讲授本科生、研究生课程至今。在研究生入门级的集成电路设计方法类课程的教学过程中，陆续编写了一批用于示范ICCAD基本原理的程序并开源共享。大家如访问在GitHub上对应的项目ICCAD_demos，可以首先阅读到该项目的Readme介绍词如下：</p>
+<p>ICCAD related code demos in Python for learning basic algorithms and other IC knowledge</p>
+<p>The idea of writing then gathering basic ICCAD programs in a place for convenient visit originates from my ICCAD course tutoring. There were Python programs written by students as part of their bachelor theses and I tried to edit some of the code for my graduate course’s teaching purpose. Later, I myself wrote more on circuit simulation for showing the computation principles in the course. It is time to create a project holding these pieces together, which might help save the code changes over time and hopefully will inspire more programs to be written for further public access.</p>
+<p>ICCAD_demos这个项目中的程序运行在Linux系统上，使用Python语言，目前均为Python 3适用。因为Python语言程序本身独立于操作系统，大部分程序也可以运行在Windows或MacOS上。但是项目中作为参考、辅助、对照的开源EDA工具，一般都运行在Linux平台上面；另外，项目中还有少量Linux shell - bash脚本程序，用来批处理运行Python程序；因此推荐同学事先要安装好Linux操作系统或Linux虚拟机，并在其上要能够顺利运行最基本的Python程序。系统配置相关的一些信息可以到github项目讨论组中交流查阅。目前能看到的项目代码，除了文件头注明是由AI辅助生成，其它源文件基本上是作者一行一行编写并调试完成的，但都没有标注软件许可证类型，也就是可供同学自由学习、自由使用。代码以外的书籍本身按CC BY-SA 4.0许可，这和GNU的Copyleft精神也是一脉相承的。</p>
+<p>人工智能、开源社区，新的时代也催动学习方式的变革。不同于以往教科书所侧重的推导、论述，现在同学可以直接看到示范代码、直接运行代码、直观考察仿真结果；可以调整代码实验新的参数配置；也可以利用AI生成的辅助程序，帮助理解某些难点；还可以自己借助AI助手分析代码并进行学习总结。跟着代码学习以后，过一段时间接触到实际工作，再回头请AI帮助复习整理，这样能很容易累积起属于自己的、超越代码层次(Beyond Code)的知识“干货“。</p>
+<p>ICCAD_demos开源项目程序仅外部依赖几种常见的Python库，其代码、注释均为英文。本书安排了开源项目中十个入门级集成电路仿真程序的详细中文讲解，一共安排十讲，内容依次为MPW布局、线性/非线性电路分析、R/C延时计算、延时模型约简、数字逻辑仿真、标准单元库特征提取、路径延时计算、寄生电容提取、光刻仿真。讲解不以面面俱到作为追求的目标，而是把集成电路仿真中典型的问题、解决的途径展示出来，帮助大家在理清主要脉络以后，还能提出更高层次的问题。将本书结合代码和注释阅读，对于同学提升自己的专业英语能力，应该也有很大帮助。</p>
+<p>Now move on to the code.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="LICENSE.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="chapter_1.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="LICENSE.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="chapter_1.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-09f2665d.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-609e4cb8.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="mermaid-eefea253.min.js"></script>
+        <script src="mermaid-init-53b67c53.js"></script>
+
+
+
+    </div>
+    </body>
+</html>

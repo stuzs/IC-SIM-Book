@@ -1,0 +1,533 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>第一章 硅晶圆上的芯片排布 - 集成电路仿真十讲 - Ten Tutorials on IC Simulation</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="集成电路仿真基础算法指南 - A guide to fundamental algorithms for IC simulation">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-e96d0476.css">
+        <link rel="stylesheet" href="css/chrome-d279d366.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-14fb0710.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-18677864.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">集成电路仿真十讲 - Ten Tutorials on IC Simulation</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
+<h1 id="第一章-硅晶圆上的芯片排布"><a class="header" href="#第一章-硅晶圆上的芯片排布">第一章 硅晶圆上的芯片排布</a></h1>
+<h2 id="11-程序主体"><a class="header" href="#11-程序主体">1.1 程序主体</a></h2>
+<p><strong>程序脚本文件名称</strong>：iccad_mpw.py</p>
+<p><strong>程序说明</strong>：光刻是集成电路制造过程所围绕的中心加工步骤。光刻工艺要求事先制备一套多达几十张的光掩模；在具体光刻操作时光刻机的每一次曝光可以将一张光掩模上的图形模式转移到硅晶圆表面。<br>本程序是多项目晶圆(MPW, Multi-Project Wafer) 所使用的光掩模上的芯片排布和光刻机顺序步进曝光的一个简化示例。程序仿真了各MPW芯片在硅晶圆上多个位置的光刻投影，并且演示了Python的基本语言元素以及如何在Python中建立图形用户界面(GUI, Graphic User Interface)。</p>
+<p><strong>主体代码为</strong>：</p>
+<pre><code>     1	#!/usr/bin/env python
+     2	"""An IC fabrication demo showing MPW photomask and its projections on
+     3	silicon wafer, with demos on Python code basics and using GUI in Python.
+     4	"""
+...
+    10	import tkinter as tk
+...
+   145	# Let us try all commands below, one by one.
+   146	# It is easier in an interactive environment to run commands together.
+   147	
+   148	#show_mpw()
+   149	#show_mpw(n=30)
+   150	#fields()
+   151	#fields(24,28,200)
+   152	#fields(30,20)
+   153	#fields(detail=True)
+   154	#fields(detail=True, diameter=450)
+</code></pre>
+<center>代码1-1</center>
+<p><strong>程序执行</strong>：</p>
+<p>本程序几乎没有直接可执行的语句。如果在Linux shell命令行如下键入执行：</p>
+<p><code>$&gt;</code>  <code>python3 iccad_mpw.py</code></p>
+<p>结果没有任何显示信息的话，那就对了。如果有任何信息显示，也可能是提示需要使用命令<code>python</code>或<code>py</code>来执行Python，或Python环境还没有安装妥，或者tkinter库没有下载或安装到位，或者iccad_mpw.py文件没有出现在合适的目录位置；同学需要仔细阅读任何出现的信息提示，试着按部就班一一解决，一直到不再出现任何此类提示信息。</p>
+<p>在注释行中有对本程序执行的两行提示：</p>
+<pre><code>   145	# Let us try all commands below, one by one.
+   146	# It is easier in an interactive environment to run commands together.
+</code></pre>
+<p>这两句话提示同学，在后续注释行中嵌入有可执行的命令，可以修改程序源代码。每次修改时可找到程序中原来作为注释行，但其文字内容是调用函数show_mpw( )或调用函数fields( )的某一行，将其第一列的#符号（可以称注释符号#为hash）删除，保存文件后，再次执行如下shell命令：</p>
+<p><code>$&gt;</code>  <code>python3 iccad_mpw.py</code></p>
+<p>如每次仅删除某一行头的#符号，运行程序观察结果；再恢复这个#符号并删除另一行头的#符号；这样连续操作，可以依次执行完这批原来躲藏在注释行内的命令，看到不同的命令运行所显示的不同图形结果。</p>
+<p>每修改一次源代码，都要到命令行运行一次Python解释器的话，操作很繁琐。因此第二句提示推荐同学使用一个交互式的环境即interactive environment，比如在shell命令行仅运行解释器本身：<code>python3</code>，或者：<code>ipython3</code>。同学进入了交互对话的环境后，可以将iccad_mpw.py先在交互环境中执行，比如在python3的交互环境中键入命令：</p>
+<p><code>&gt;&gt;&gt;</code>  <code>exec(open('iccad_mpw.py').read())</code></p>
+<p>或者更方便地，在ipython3交互环境中键入命令：</p>
+<p><code>In [1]:</code>  <code>run iccad_mpw.py</code></p>
+<p>虽然和在shell命令行执行一样没有明显的结果输出，但此时程序已经加载到交互环境中了，后续可以手动键入（也可以复制后粘贴）命令例如：</p>
+<pre><code>show_mpw()
+</code></pre>
+<p>或例如，</p>
+<pre><code>fields(detail=True, diameter=450)
+</code></pre>
+<p><strong>运行结果</strong>：</p>
+<center>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="./resources/chpt1/fig1-1.png" alt="Fig 1-1"><span class="img-wrapper"><img src="./resources/chpt1/fig1-1.png" alt="Fig 1-1"></span></label>
+图1-1 show_mpw( ) 运行结果</p>
+</center>
+<p>show_mpw( )的结果显示了在一张光掩模上多个项目的芯片的位置安排。集成电路设计企业在集成电路试制阶段有可能参加此类MPW计划，也就是让试制芯片“搭乘“硅晶圆代工制造厂定期安排的、多家设计企业可以共同乘坐的“流片班车“(shuttle bus, 穿梭班车)，以节约光掩模制造的费用。如图中可能有7个企业的试制芯片共同分享同一张光掩模；一套光掩模中其它几十张也按照此图中同样的几何位置分配给各家的芯片项目。</p>
+<p>在MPW试制完毕拿到芯片样品后，如经周密测试一切顺利，产品进入大规模量产时，本次MPW的光掩模还有用吗？答案是这次的光掩模上还有其它企业的不少芯片版图，这套光掩模本身一般就不用了，但试制成功的本企业芯片的设计版图还是有用的，可以把要投产的芯片版图原样重复排列例如9次(3行 X 3列)或20次(4行 X 5列)等等，制造成一套新的光掩模，用于实际量产。</p>
+<center>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="./resources/chpt1/fig1-2a.png" alt="Fig 1-2a"><span class="img-wrapper"><img src="./resources/chpt1/fig1-2a.png" alt="Fig 1-2a"></span></label>
+<label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="./resources/chpt1/fig1-2b.png" alt="Fig 1-2b"><span class="img-wrapper"><img src="./resources/chpt1/fig1-2b.png" alt="Fig 1-2b"></span></label>
+图1-2 不同输入变量的fields( )运行结果</p>
+</center>
+<p>fields( )的结果显示光掩模经光刻机投影到硅晶圆上以后，硅片上的投影区域也即“曝光场“(exposure field，而曝光动作名词常称为exposure shot或简称shot)的位置；在赋值给参数detail=True后，还可以看到各个多项目芯片的详细投影位置。</p>
+<p>fields( )函数的参数中除了detail以外，还有diameter用来定义硅晶圆的直径。硅晶圆直径常见的为12英寸，也即300mm晶圆，一般使用铜互连工艺的硅晶圆都是12英寸。历史上半导体晶圆有8英寸(200mm)、6英寸、4英寸等直径值，随着一代一代集成电路工艺的发展，晶圆直径变大，这样一片晶圆上可以产出更多的芯片，其产出数目在晶圆上芯片的详细位置图中有直观体现。目前在成熟特色工艺（如模拟、高压、传感器、化合物等）制造中，8英寸及更小直径晶圆也是常见的，同学可以输入对应fields( )参数diameter的直径值进行仿真观察。如果同时输入diameter=450及detail=True，可以看到预想中18英寸晶圆的芯片产出情况；18英寸晶圆设备的开发应用在2015年前后已被国际巨头们宣告放弃，主要还是由于设备依赖链太长削弱了投入/产出效益。</p>
+<p>fields( )函数的前两个参数width和height，用来定义光掩模的尺寸。实际光掩模的尺寸比它在硅晶圆表面的投影尺寸要大好几倍，典型的投影缩小比例为1:4；光掩模的实际尺寸较大，上面的微细图形用电子束直写加工的难度也就降低。由于不同光刻机的投影缩小比例未必相同，甚至在极紫外(EUV, Extreme Ultra Violet)光刻的镜面反射投影系统中，光掩模的水平/垂直方向的投影缩小比例也不一致，因此这里fields( )统一使用投影到晶圆上的光掩模投影尺寸作为width和height的取值，而不考虑光掩模实际的物理尺寸；如fields(30, 20)即表示光掩模在硅晶圆上的曝光场大小为30mm X 20mm，共600mm的晶圆上曝光面积。光刻机有曝光场尺寸的上限，光掩模的水平/垂直尺寸在该上限之内稍调整得小一些是允许的，但如光掩模尺寸变小的话，每片晶圆的曝光次数就要增多，这将占用更多的光刻机机时；当然另一方面，光掩模小一些的好处是制作光掩模的费用可以节省，该费用是一笔巨大的一次性投入，其价格和掩模面积呈正比关系。实际曝光次数在fields( )函数运行时由print( )报告输出。</p>
+<h2 id="12-问题需求和算法背景"><a class="header" href="#12-问题需求和算法背景">1.2 问题需求和算法背景</a></h2>
+<p>经过程序运行并观察输出结果后，可以对程序要解决的问题做一归纳：<br>已知有一批MPW项目芯片的版图，已确定其大小和在光掩模上的排布位置（坐标等几何数值均已按1:1投影比例调整），存在一个列表(list)中。需要：</p>
+<ol>
+<li>显示图形，描绘光掩模上各芯片版图排布情况。</li>
+<li>显示该光掩模经过光刻机按各场区域为顺序曝光后的硅晶圆图形。</li>
+</ol>
+<p>在Python环境中需要创建较为简单的GUI，优先选择Tkinter库，其特点是简单易用。Tkinter作为Python的标准GUI开发工具已近30年了。当年John Ousterhout教授以开源形式发布的Tcl脚本语言(Tcl or TCL，全名Tool Command Language)就是为了解决ICCAD流程中各个EDA点工具内部的语言系统过弱的问题；这里的tool当初就是指的IC design tool。把开源、可扩展的Tcl语言解释器嵌入到各EDA工具中，各工具可以借用该语言核心并定制添加自己的Tcl命令，然后在ICCAD流程中就可以用Tcl脚本把一批EDA工具链接起来。之后在Tcl语言上又扩展出了Tk工具箱，也就是在Tcl语言的命令行界面(CLI, Command Line Interface)新增了一批专门用于GUI操作的定制命令。Tcl语言发展至今，在ICCAD软件工具中的应用相当普遍，比如广泛用于交互界面、文件输入输出、自动流程控制、计算和分析脚本，以及对如时序约束的描述等。近年来在主流ICCAD工具所采用的用户端语言中，Python的使用也在逐步推开，但Tcl的主力地位仍然难以替代，同学后续如遇到Tcl语言环境也须能较快学习上手。</p>
+<p>本程序中导入使用的Tkinter库也就是Tk interface的意思；这个库为Python提供了Tk专门命令的一个使用接口，使我们在Python中可调用这个接口上的函数去实际使用Tk。在本程序内还给了Tkinter库一个快捷的短别名，就叫tk。代码见下：</p>
+<pre><code>    10	import tkinter as tk
+</code></pre>
+<br>
+<p>本程序内用到的Python基本数据类型有：</p>
+<ul>
+<li><em>元组(tuple)</em> – 程序中用到了一个tuple存放顺序排列的4个数，表示一种芯片的具体位置和大小。元组以一对圆括号 ( ) 作为标记。元组创建赋值以后其具体值就不能动了。</li>
+<li><em>列表(list)</em> – 程序中用到了list来顺序存放各个芯片的位置和大小，即该列表的每个元素是一个上述的tuple。列表以一对方括号 [ ] 作为标记。列表的元素是可以添加、修改、删除的。</li>
+</ul>
+<p>对于Python的基本语素、语法，如果此时同学了解尚不够全面，也没有什么问题，多看多试多问，应可相当快地入门掌握。比如list, tuple类型在本程序中出现，可以观察其如何赋值，如何操作等，后续即可主动用于自己的编程练习中。为了将内容聚焦到集成电路仿真本身，代码讲解时会简化Python程序中一些风格细节、替代可能等叙述，留给同学后续自己来慢慢细化吸收。</p>
+<h2 id="13-代码讲解"><a class="header" href="#13-代码讲解">1.3 代码讲解</a></h2>
+<p>本程序中有2个主要的命令函数，show_mpw( )和fields( )。可以从show_mpw( )这个相当简单的图形命令函数开始讲解。</p>
+<pre><code>   120	def show_mpw(n=10):
+   121	    """Show the MPW placement in detail with an enlarging scale 'n'.
+   122	    Usage: show_mpw() or show_mpw(n=value)
+   123	    """
+   124	    # get MPW geometrical information from function mpw()
+   125	    singleMPW = []
+   126	    (w, h) = mpw(singleMPW)
+   127	
+   128	    root = tk.Tk()
+   129	    cv = tk.Canvas(root, bg='white', width=20+w*n, height=20+h*n)
+   130	    cv.pack()
+   131	
+   132	    # initialize position setting
+   133	    xcor = 10
+   134	    ycor = 10
+   135	
+   136	    cv.create_rectangle(xcor, ycor, xcor+w*n, ycor+h*n, fill='lightgrey')
+   137	
+   138	    for (x, y, w, h) in singleMPW:
+   139	        x1 = xcor + x * n
+   140	        y1 = ycor + y * n
+   141	        cv.create_rectangle(x1, y1, x1+w*n, y1+h*n, width=3, fill='grey')
+   142	
+   143	    root.mainloop()
+</code></pre>
+<center>代码1-2</center>
+<p>首先看到的show_mpw( )的函数定义行，以def 开头，以 “:”（可以称冒号为colon）结束。show_mpw( )函数仅能接受一个参数n定义画布的放大倍数；如果不输入任何参数，n的缺省值就为10。下面以3个双引号开始和结束的文档字符串(docstring)说明本函数的功能和用法等，在Python交互时如执行<code>help(show_mpw)</code>可随时显示。函数如将作为API接口对外开放，全面说明是必备的。</p>
+<p>创建一个空的列表变量singleMPW，等号右侧的[ ]符号即规定了singleMPW这个变量的类型为list，目前暂时为空。下一步，将singleMPW变量作为输入变量，调用另一函数mpw( )。mpw( )的代码稍后讲解。这次执行的结果是singleMPW从mpw( )带回了 MPW光掩模上各个芯片的位置和大小，即singleMPW的每一个元素代表一种芯片，均为由4个数值并列构成的tuple；同时mpw( )函数本身返回了一个由2个数值构成的tuple，表示正好包围所有芯片的边界方盒的宽度、高度，这也就是为了本次MPW要制造的光掩模的大小（尺寸按1:1投影的理想假设）；代码中，返回的tuple中的宽高尺寸数据分别赋值给了数值变量w和h。</p>
+<p>有了各个芯片的位置和大小，以及包含所有芯片的光掩模宽高后，即可使用Tkinter绘制图形。其主要步骤为：</p>
+<ol>
+<li>调用tk.Tk( )，返回变量root。tk.Tk( )返回的是新建GUI窗口的“根“。另可以在交互环境中试着创建一个新的变量也等于tk.Tk( )，应能看到出现新的空白窗口。</li>
+<li>在root上创建一个Tk中规定的绘图画布Canvas，变量的名字叫cv，根据所有芯片的边界方盒大小决定画布的高度、宽度，并且计划在四周留一点窄边；定义实际的画布大小时，缩放因子n产生作用。</li>
+<li>将画布cv安放进上级窗口，不用指定太具体的坐标位置，即调用cv.pack( )。</li>
+<li>在画布上先绘制一个浅灰色的矩形，作为绘制芯片的底色区域，画布周围留出10个像素点的窄边。</li>
+<li>从列表singleMPW中一个一个把代表各个芯片位置和大小的tuple用for循环拿出来，tuple中的4个数值分配给4个变量x, y, w, h，将这些芯片逐个在画布上绘出位置轮廓，轮廓的宽度为3个像素，内部填充普通灰色，n为图形放大因子。这里的变量w, h和前几行代码中的w, h重名了，是否可以？答案是虽然易混淆，但语法上没问题，变量可以重复赋值，后值会覆盖前值。</li>
+<li>root.mainloop( ) 进入图形界面的循环中，直到同学关闭这个MPW光掩模的显示窗口。</li>
+</ol>
+<p>下面简单看一看函数mpw( )。其参数仅一个，为上级程序调用函数时传送来的列表型变量dlist。文档字符串描述了函数目的：将待求的光掩模曝光场的宽度、高度从一个元组wrap中返回；而且将所有芯片（硅晶圆上的单独芯片可以称为die，其复数为dice）的左上角坐标、宽度、高度（也即x/y/w/h）存放到输入列表dlist中。所有芯片的位置和大小信息原先已经存在一个列表变量planned中，该变量中的芯片位置、宽高信息可能由一个自动的MPW布局优化器生成，但这里为了演示目的直接给出了一个确定了的布局计划，跳过了自动优化步骤。元组wrap的内容为正好包围所有芯片的边界方盒尺寸。</p>
+<pre><code>    34	def mpw(dlist):
+    35	    """Return the asked-for field width and height in a tuple 'wrap',
+    36	    and return all dice information(x/y/w/h) through parameter 'dlist'.
+    37	    The information in list 'planned' could be automatically generated
+    38	    by a dice placement optimizer, but here we just give a certain layout
+    39	    plan for demo; 'wrap' contains the two dimensions of the boundary box
+    40	    holding all planned dice (i.e., a bounding box).
+    41	    """
+    42	    planned = [(0, 0, 15, 15),
+    43	               (15, 0, 15, 10),
+    44	               (15, 10, 8, 8),
+    45	               (0, 15, 4, 5),
+    46	               (5, 15, 4, 5),
+    47	               (10, 15, 5, 5),
+    48	               (25, 12, 5, 7)]
+    49	
+    50	    wrap = (30, 20)
+    51	    # let us try to automatically generate 'wrap' in homework
+    52	
+    53	    for t in planned:
+    54	        dlist.append(t)
+    55	    # would you try use 'dlist = planned' to replace the 2 lines above?
+    56	
+    57	    return wrap
+</code></pre>
+<center>代码1-3</center> 
+<p>在给定MPW中所有芯片矩形的位置、宽高以后，边界方盒的尺寸应该是唯一确定的，同学在本章作业中可以试着从列表变量planned中读取所有芯片的信息，计算求得边界方盒尺寸。在本函数原始代码中，直接给出了对应的边界方盒尺寸wrap为(30, 20)。</p>
+<p>下一步从列表变量planned中循环将所有芯片的位置、宽高信息拷贝到输入列表变量dlist中。代码中使用了列表的元素添加功能append( )，将每个芯片的信息一次一个添加到dlist本身的数据链中。注释行中也询问同学，直接用等号实现两个列表的赋值行不行？可以试着直接赋值，并且在mpw( )函数内打印被赋值的列表变量；然后对于列表用append( )添加元素和直接用等号赋值这两种情况，在show_mpw( )中调用mpw( )以后，都打印singleMPW的值来看一看，是否被赋上了mpw( )中planned的值。这些操作便于同学直接体验到在Python中同一内存地址的变量别名、函数作用域等常见疑难。在Python中列表、字典、集合等一类可变(即Mutable)变量的赋值类型有别名引用（即仅传递内存地址）、浅拷贝(shallow copy)、深拷贝(deepcopy)；本书点到即止，不展开详细讨论；其原理上与C语言中变量的内存安排和管理模式是相通的。在C语言中函数内部的变量如果是static型，其地址仍然可以通过指针变量传送出去到整个程序实现有效访问，但Python中没有直接的对应机制，需要费一些心思来考虑把变量“粘贴“到一个主程序运行起来会留出静态位置的内存地点，但一般情况也不刻意强求。</p>
+<p>接下来看用于硅晶圆上曝光场显示的命令函数fields( )。fields( )函数有4个参数，其中参数width和height用来定义每一次曝光的光场宽、高，缺省尺寸为30mm X 30mm，这同时也就是按照1:1投影理想假设下的光掩模大小。参数diameter定义晶圆的直径，缺省是300mm(12英寸)。参数detail是一个布尔值（仅取值True或False），用来决定是否绘制曝光场内各个芯片的详细位置形状；如果detail的值为True的话，参数width, height就不起作用，此时所有各个芯片的位置形状、外围边界方盒的尺寸会通过详细查问mpw( )直接获得。fields( )函数的代码结构并不复杂，仅有两个逻辑分支都是为了处理当detail为真时的额外任务。整个晶圆的圆心可能正好和圆心附近几个相邻曝光场的矩形四角顶点重合，或圆心正好在某曝光场的矩形中心，或有其它可能；本程序中仅使用晶圆圆心正好和曝光场四角重合作为示例。</p>
+<pre><code>    60	def fields(width=30, height=30, diameter=300, detail=False):
+    61	    """Expose many fields (shots) on wafer by a stepper; each field has its
+    62	    width and height; each wafer has a specified diameter, the default
+    63	    'diameter=300' indicating a 12 inches wafer.
+    64	    When setting argument 'detail=True':
+    65	        Parameters 'width' and 'height' then have no meaning at all;
+    66	        mpw() will return a list of die positions and dimensions, and
+    67	        then each die inside each field is drawn finely.
+    68	    The wafer center might be on a field center or on field corners,
+    69	    but here to demonstrate Python list, we only implement the latter.
+    70	    """
+    71	    root = tk.Tk()
+    72	    radius = int(diameter / 2)
+    73	    x_c = 1.5 * radius
+    74	    y_c = 1.25 * radius
+    75	    cv = tk.Canvas(root, bg='white', width=2*x_c, height=2*y_c)
+    76	
+    77	    # draw a wafer whose center is on canvas center, r=radius
+    78	    cv.create_oval(x_c - radius, y_c - radius,
+    79	                   x_c + radius, y_c + radius, outline='red')
+    80	    cv.pack()
+    81	
+    82	    if detail:
+    83	        dice_list = []
+    84	        # if detail is True, field width and height are over-set by mpw()
+    85	        (width, height) = mpw(dice_list)
+    86	
+    87	    # to expose all fields, first generate a xy_list of tuples which
+    88	    # contains the bottom-left corners of all fields in the 4 quadrants
+    89	    x_list = [x for x in range(0, radius, width)]
+    90	    y_list = [y for y in range(0, radius, height)]
+    91	
+    92	    xy_list = [(x, y) for x in x_list for y in y_list] \
+    93	        + [(-x - width, y) for x in x_list for y in y_list] \
+    94	        + [(-x - width, -y - height) for x in x_list for y in y_list] \
+    95	        + [(x, -y - height) for x in x_list for y in y_list]
+    96	
+    97	    field_count = 0
+    98	    for (x, y) in xy_list:
+    99	        if not fully_outside(x, y, width, height, radius):
+   100	            cv.create_rectangle(x_c + x, y_c + y,
+   101	                                x_c + x + width, y_c + y + height, width=1)
+   102	            field_count += 1
+   103	
+   104	            # next, draw all mpw dice in detail; the coordinates are
+   105	            # already stored in dice_list by mpw()
+   106	            if detail:
+   107	                for (xx, yy, ww, hh) in dice_list:
+   108	                    x1 = x_c + x + xx
+   109	                    y1 = y_c + y + yy
+   110	                    cv.create_rectangle(x1, y1, x1 + ww, y1 + hh)
+   111	
+   112	    print("Actual field width and height = %d, %d;" % (width, height))
+   113	    print("Total actually stepping fields = %d;" % field_count)
+   114	    # However, there might be some fields barely-touched wafer edge,
+   115	    # and which could be left for fine tuning in homework later.
+   116	
+   117	    root.mainloop()
+</code></pre>
+<center>代码1-4</center>
+<p>fields( )和show_mpw( )一样使用Tk图形界面，图形绘制在画布cv上，画布大小为3倍晶圆半径 X 2.5倍晶圆半径（即1.5倍晶圆直径 X 1.25倍晶圆直径），这样在晶圆图左右留有一些空白。以画布中心作为晶圆圆心，绘制红色的晶圆边缘；再将画布在窗口中安排合适位置，也即调用函数cv.pack( )。</p>
+<p>fields( )函数然后判断参数detail的值如为True的话，从mpw( )返回的tuple中获得光掩模宽高，而将列表变量dice_list传递进mpw( )，带回来所有MPW芯片的位置、大小。接下来以晶圆圆心作为坐标系原点(0, 0)，生成包含所有曝光场左下角X/Y二维坐标的一个列表xy_list，光刻机可以根据这个列表来移动晶圆相对于曝光镜头的位置，实现一步一步的“步进式“曝光。在代码中，生成xy_list分为两个步骤，首先生成第一象限X方向上和Y方向上可能安放曝光场左下角的离散格点坐标，形成两个列表x_list和y_list；其次，利用这两个列表，在四个象限上均生成曝光场左下角二维坐标的列表，并将4个列表拼装成xy_list。下面选两段代码作为例子来看一看Python中从循环变量生成列表的一种简洁方法，列表推导式(List Comprehension)，其基本创建语法仅一句为：</p>
+<pre><code>[expression for element in iterable if condition]
+</code></pre>
+<p>代码段1：</p>
+<pre><code>x_list = [x for x in range(0, radius, width)] 
+</code></pre>
+<p>右侧生成的列表中的元素的表达式是x，直接等于后续的element x，它是从range( )所生成的一个等差数字序列中一一提取元素得到的，而这个等差序列是从原点的X轴坐标0到X轴最大可能取值坐标（最大不会大于半径）之间每隔一个曝光场宽度取一点构成的。同学可以感觉到列表推导式语法是汉语中的倒装句式否？先说重要的，新列表的元素怎么从原来的元素构造，再说补充的，原来的元素从哪里来。</p>
+<p>代码段2：</p>
+<pre><code>[(x, -y - height) for x in x_list for y in y_list]
+</code></pre>
+<p>该推导式生成的列表，其元素表达式是(x, -y-height)，即每个元素是由两个数值排列成的一个元组。表达式中的x, y是在后续for中提及的推导变量element，分别从x_list和y_list两个列表中的元素一一取得其值。height不在推导式的变量中，因此作为一般变量参与运算即可。整句代码是生成第四象限内曝光场左下角二维坐标的列表，其中每一点的X坐标和第一象限点坐标相同，但Y坐标和第一象限点坐标符号相反并相差一个曝光场的高度值。</p>
+<p>加号是有效的列表运算符。四个象限中曝光场左下角二维坐标的列表可以用加号加起来，形成一个包含它们的大列表xy_list。如果Python代码行太长，可以分写成几行，但需注意用反斜杠符号结尾，“\“指示下一行还是本行的继续（可以称反斜杠符号为back-slash）。本程序内其实也还有其它的续行写法，可以自行寻找一下。有了xy_list以后，光刻机其实就可以动作起来进行步进式曝光了。在本函数中则增加了一个检查，判断本次曝光场在给定左下角坐标和宽、高以后，是否完全在晶圆以外？即只要曝光场和晶圆沾上一点边，才执行曝光；或同义表达为，如果xy_list中有的曝光场是在晶圆边缘以外的，比如整个光场偏在晶圆某个象限的圆弧以外，那不需要曝光。如果曝光场和晶圆确实是有沾边的，就画出此次的曝光场矩形轮廓；如果同时输入变量detail也为真，那么把这次曝光场内的所有MPW芯片的位置大小也详细绘制出来，其相关信息前面已经由调用mpw( )保存到dice_list中了。</p>
+<p>程序中另有一个函数fully_outside( )，其目的如函数名所示，是为了判断曝光场是否完全在晶圆之外（即完全不沾边）。代码实现中以曝光场4个顶点的坐标是否在晶圆内进行判断，如果某顶点在晶圆内，则该顶点和晶圆圆心的距离的平方大于晶圆半径的平方；矩形4个顶点如果都在晶圆以外，代码用逻辑运算符“and“实现4个条件的“与“判断，则认为曝光场在晶圆以外。这样判断看实验结果基本上是可行的，但几何上不够严密，后续可以再向前讨论一步。</p>
+<pre><code>    13	def sdist(x, y):
+    14	    """Return squared distance with respect to the (0, 0) origin,
+    15	    which is the center of the wafer.
+    16	    """
+    17	    return x * x + y * y
+    18	
+    19	
+    20	def fully_outside(x, y, w, h, radius):
+    21	    """Try to judge whether a rectangle is fully outside a circle.
+    22	    The rectangle is defined by its bottom-left corner, width and height;
+    23	    the circle's center is on (0,0), and has a given 'radius'.
+    24	    """
+    25	    R2 = radius * radius
+    26	    # can we remove '\' here?
+    27	    if sdist(x, y) &gt; R2 and sdist(x + w - 1, y) &gt; R2 \
+    28	            and sdist(x, y + h - 1) &gt; R2 \
+    29	            and sdist(x + w - 1, y + h - 1) &gt; R2:
+    30	        return True
+    31	    return False
+</code></pre>
+<center>代码1-5</center>
+<p>至此就把本程序的主要代码作了一个游览漫步（有时候说Code Walkthrough）。但因程序面向基本原理的讲解，工程细节大部分都已简化，例如实际工程中曝光场之间也可能留出细边安放测试结构；曝光场内芯片之间一般要留出水平/垂直切割槽（或称划道，英文为Scribing Lane或Scribing Line），便于晶圆完工后水平/垂直下刀将单个芯片锯开；硅晶圆边沿上有可能要留出小三角开口槽(notch)或平边(flat)，以识别其方位朝向，也可供器械夹持。和晶圆部分沾边或仅小部分沾边的曝光场是否要曝光，可能要由芯片产出、实际良率和光刻机机时等因素的效益核算来决定。而计算每片晶圆上有效的芯片产出(Dice per Wafer)时，有的芯片如果有部分区域落在距离晶圆边缘小于几个毫米的余隙带内的话，也可能需要排除。</p>
+<h2 id="14-其它实例及辅助程序"><a class="header" href="#14-其它实例及辅助程序">1.4 其它实例及辅助程序</a></h2>
+<p>在运行程序、了解代码和相关技术知识以后，可以进一步实验运行更多的例子。在本程序原始代码文件的最后部分，内容躲藏在注释行内的，是摆放这些MPW芯片的另外一种布局实例。这里也定义了和mpw( )中相同的list变量planned，描述了同尺寸7个芯片的另外一批位置格局，并定义了相同的tuple变量wrap，描述了包含7个芯片边界方盒的尺寸为(25, 23)。新的布局更加紧凑，其方盒面积25 X 23 = 575平方毫米，小于原始例子中的30 X 20 = 600平方毫米；按此布局制造光掩模，掩模面积略小则掩模成本降低，而在光刻时，每一片晶圆上的芯片产出数粗略估计也能增加4%。</p>
+<pre><code>   156	# Let us try another dice floor plan (and try using vim to copy them up
+   157	# and remove # signs on line beginnings).
+   158	#    planned = [(0, 0, 15, 15), \
+   159	#         (15, 0, 10, 15), \
+   160	#         (0, 15, 8, 8), \
+   161	#         (8, 15, 5, 4), \
+   162	#         (8, 19, 5, 4), \
+   163	#         (13, 15, 5, 5), \
+   164	#         (18, 15, 7, 5)]
+   165	#
+   166	#    wrap = (25, 23)
+</code></pre>
+<center>代码1-6</center>
+<p>在对第二种布局方案实验的提示注释行中，建议同学把新的planned和wrap赋值代码行拷贝到mpw( )函数中替代第一种布局。拷贝多行文本、删除第二种布局值行头的hash符号、给第一种布局值行头添加hash符号，这类文本编辑任务看似普通，但如果能熟练使用Linux下通用的vi/vim文本编辑器，则可以做到不使用鼠标，用最少的击键次数完成。例如连续10行行头添加#，对应的vi命令为：</p>
+<pre><code>:.,+9s/^/#
+</code></pre>
+<p>作为集成电路专业方向的工程师、科学家，经常面对代码；打字速度快、击键次数少，日积月累的收益也不可低估。</p>
+<p>在主要的源代码程序以外，开源项目中另有专门的目录，存放一些程序作为扩展实验或作为难点讲解的辅助，其中有一些是人工智能辅助生成(AIGC)的。这些程序代码有可能比本书各章节讲解的ICCAD主要源代码更为复杂，但书中不安排详细的代码解释，而仅安排目的介绍并简述实验运行、结果观察等。</p>
+<p>本章相关的辅助程序为：ds_mpw_pack.py。该程序用来帮助解答同学会提出的一个疑问：对于本章中的7个MPW芯片，是否存在更小于575平方毫米的边界方盒？也即对于一批矩形MPW芯片，允许各自旋转90度但不可以相互重叠，求包含它们的最小面积的边界方盒。</p>
+<p>本问题是经典的“二维矩形装箱问题“中的一种最小化满装容器成本的实例。该问题是NP-困难问题（其中NP, Non-deterministic Polynominal指非确定性多项式时间复杂度），其最优解一般没有办法在多项式时间内获得，而仅能通过“启发式方法“也就是说因题制宜，找到实验表现较佳的近似较优算法来求解。人类对装箱(Bin Packing)类问题及其各种约束条件变化后派生问题的研究已有相当的积累，相关知识和算法文献较丰富，因此也被人工智能LLM所充分吸收。对于本问题中矩形数目不多的情况，作者用适当的提示词要求LLM生成了ds_mpw_pack.py程序，运行该程序可以搜索获得面积较小的边界方盒，但未必能保证是最优解。从EDA的四个台阶层次来说，这已经从simulation台阶跨到了optimization台阶。</p>
+<p>该程序假设矩形都是“砖块“，尝试使用不同的宽度W作为“砌墙“的地基宽度（在图1-4中是向下方进行“砌墙“）；固定W时尝试所有可能的砖块排序、也包括是否旋转砖块的组合，按所有组合顺序一一取出砖块从左到右摆放砌墙；找到取各个W值时高度H最低的墙，计算W*H面积比较取优即可。在顺序摆放砖块时使用了一种尽量降低当前墙高的“贪婪“算法(Greedy Algorithm)，部分简化了二维摆放自由度过大的问题；此算法在取砖砌墙时保持追踪当前墙最高处的“天际轮廓线“以决定向何处垒放新加的砖块，故常称为“天际线“(Skyline)算法。</p>
+<center>
+<p><label class="checkbox-label"><input class="checkbox-img" type="checkbox"><img src="./resources/chpt1/fig1-4.png" alt="Fig 1-4"><span class="img-wrapper"><img src="./resources/chpt1/fig1-4.png" alt="Fig 1-4"></span></label>
+图1-4 面积更小的MPW布局</p>
+</center>
+<p>运行ds_mpw_pack.py，其最外层循环穷举所有可能的宽度W值，在循环内使用“天际线“算法将各种可能组合的砖块序列全部尝试砌一遍（函数名为pack_sequence），整个过程还是需要花费较长时间的，同学应保持足够耐心。如果算法在砌墙过程中足够聪明，能不断审视已尝试其它W值获得的当前最优解，本次砌墙砌到一定高度后可能就判断不必再砌下去了（即半途而废某些尝试途径，或称分支限界树状搜索的“剪枝“），这样可节省计算时间。图1-4的结果显示该种布局的方盒面积为15 X 37 = 555平方毫米。如果实际使用光刻机的晶圆上曝光场尺寸上限低于37mm，可以在ds_mpw_pack.py中添加该尺寸的上限约束，这样所探索的W取值和H取值的范围变小后，求解过程也可能成倍加速。</p>
+<h2 id="15-拓展问题及练习"><a class="header" href="#15-拓展问题及练习">1.5 拓展问题及练习</a></h2>
+<p><em>(Deep Dive Questions &amp; Exercises)</em></p>
+<p>本书每章末提供一些问题以拓展讲义内容，也可供同学按进一步兴趣所在，选择解题包括向AI提问并对话交流。问题基于较成熟的专业基础知识，专业词汇的含义已趋稳定，当前主要LLM的回答可信度应该已相当高，但同学仍需留心明辨正误。在拓展问题之后，还提供编程练习题和高频专业词表（每章少于10个词汇含派生、关联），接触这部分任务时除非注明，不再允许和AI交流。就和锻炼自己的身体素质一样，跑步举重游泳骑车都可以，但不能靠烧油烧电。</p>
+<p><strong>代码相关拓展问题</strong>：</p>
+<p>在程序中出现，在代码讲解时未仔细展开的一些代码行，比如第5、第6行：</p>
+<pre><code>     5	# I used 'autopep8' to convert code to be PEP8 compliant,
+     6	# but some places looked not so concise as before, so modified a little
+</code></pre>
+<p>这里讲到了Python代码的风格管理。同学书写Python代码时，有非常多涉及代码风格的细节处比如命名、空格、换行等等都值得注意。代码风格虽仅是指导性原则，但如能坚持沿用推荐风格，代码的文本格式规范、可读性高，自己工作的专业性也能获得彰显。</p>
+<p>问题1.1：请简明总结PEP8风格指南。</p>
+<p>问题1.2：如何使用autopep8整理代码风格？</p>
+<p>在讲解函数fully_outside( )时提到，实验结果基本可行，但数学上不够严格。如矩形4个顶点在圆外，矩形边仍有机会和圆相交，矩形面积小时概率会低一些。</p>
+<p>问题1.3：How to mathematically judge a large circle and a small rectangle share no area at all?</p>
+<p><strong>技术知识拓展问题</strong>：</p>
+<p>问题1.4：一套光掩模有多少张？一套光掩模制造费用大概是多少？一张光掩模一般尺寸多大？光刻机投影缩小比例是多少？</p>
+<p>问题1.5：In finding minimal bounding box of a few non-overlapping rectangles, if the number of rectangles are more than 10, what algorithm is recommended other than the Skyline heuristic?</p>
+<p>÷</p>
+<p><strong>—–以下AI 止步—–</strong></p>
+<p><strong>编程练习题1.1</strong>：根据列表变量planned的值，生成二元素元组wrap的具体值，替代mpw( )中原有的wrap赋值代码。在确定计算无误后，新增一个函数，将wrap赋值以调用该函数的方式实现。</p>
+<p><strong>编程练习题1.2</strong>：在详细绘制芯片轮廓时，在画布下方扩大40个像素宽的区域，绘制7个按钮(button)。每次按下按钮，高亮显示晶圆芯片图中、在晶圆内的、对应按钮序号的所有该种芯片。</p>
+<p><strong>高频专业词表#1</strong></p>
+<pre><code>wafer			die / dice
+photomask / mask	photolithography / lithography
+stepper			MPW
+GUI / CLI / API
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="chapter_0.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="chapter_2.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="chapter_0.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="chapter_2.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-09f2665d.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-609e4cb8.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="mermaid-eefea253.min.js"></script>
+        <script src="mermaid-init-53b67c53.js"></script>
+
+
+
+    </div>
+    </body>
+</html>
