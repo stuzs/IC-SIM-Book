@@ -37,3 +37,23 @@
         });
     }
 })();
+
+// In mermaid-init.js
+// try to decrease flowchart size
+mermaid.initialize({
+    startOnLoad: true,
+    theme: 'default',
+    flowchart: {
+        // Decrease internal padding and minimum node size
+        padding: 10,          // Default is often 15 or 16
+        nodeSpacing: 30,      // Horizontal space between nodes
+        rankSpacing: 40,      // Vertical space between ranks
+        minNodeWidth: 50,     // Minimum width for a block
+        minNodeHeight: 30,    // Minimum height for a block
+        useMaxWidth: true,
+    },
+    themeVariables: {
+        // Decrease the global font size
+        fontSize: '12px',     // Default is typically 14px or 16px
+    }
+});
