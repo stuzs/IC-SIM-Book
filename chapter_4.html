@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>第四章 R/C延时计算 - 集成电路仿真十讲 - Ten Tutorials on IC Simulation</title>
+        <title>第四章 瞬态仿真与R/C延时 - 集成电路仿真十讲 - Ten Tutorials on IC Simulation</title>
 
 
         <!-- Custom HTML head -->
@@ -35,10 +35,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-f4ab89e0.js";
+            window.path_to_searchindex_js = "searchindex-95367a28.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-97c678e1.js"></script>
+        <script src="toc-7ff2cb13.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -175,11 +175,7 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
-<h1 id="第四章-rc延时计算"><a class="header" href="#第四章-rc延时计算">第四章 R/C延时计算</a></h1>
-<h2 id="41-程序主体"><a class="header" href="#41-程序主体">4.1 程序主体</a></h2>
-<p><strong>程序脚本文件名称</strong>：iccad_ladder.py</p>
-<p><strong>程序说明</strong>：R/C梯形网络是互连线延时分析中最简单的集总模型。把一条长连线切成N段，每一段用一个串联电阻和一个接地电容来代表，就得到本章的N级R/C梯形。阶数N越大，梯形越接近分布参数的RC传输线；在集成电路互连、时钟树和长信号线的延时估算中，这种模型是理解Elmore延时和SPICE瞬态仿真的起点。<br>本程序用后向欧拉法(Backward Euler)求解1V阶跃输入下梯形末端节点的电压波形，用Elmore公式估算延时，并用Matplotlib把N=5、10、20、50四种阶数的波形画在同一张图上；程序不依赖外部网表，也不含图形用户界面，适合观察参数变化对波形和延时的影响。</p>
-<p><strong>主体代码流程框图为</strong>：</p>
+<h1 id="第四章-瞬态仿真与rc延时"><a class="header" href="#第四章-瞬态仿真与rc延时">第四章 瞬态仿真与R/C延时</a></h1>
 
                     </main>
 
